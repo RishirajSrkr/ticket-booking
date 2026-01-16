@@ -30,6 +30,8 @@ public class Event {
     @Column(nullable = false)
     private int totalSeatCount;
 
+    private String location;
+
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     private List<Seat> seats;
 

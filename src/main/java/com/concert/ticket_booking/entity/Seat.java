@@ -27,7 +27,7 @@ public class Seat {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BookingStatus status = BookingStatus.AVAILABLE;
+    private SeatStatus status = SeatStatus.AVAILABLE;
 
     private LocalDateTime lockExpiresAt;
 
