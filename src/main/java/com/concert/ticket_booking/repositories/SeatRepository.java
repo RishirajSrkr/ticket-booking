@@ -15,9 +15,9 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     List<Seat>findByEventId(Long eventId);
 
     //finding only the available seats
-    List<Seat> findByEventIdAndBookingStatus(Long eventId, SeatStatus bookingStatus);
+    List<Seat> findByEventIdAndSeatStatus(Long eventId, SeatStatus seatStatus);
 
     //find all seats that expired
-    List<Seat> findByStatusAndLockExpiresAtBefore(SeatStatus bookingStatus, LocalDateTime dateTime);
+    List<Seat> findBySeatStatusAndLockExpiresAtBefore(SeatStatus bookingStatus, LocalDateTime dateTime);
 
 }

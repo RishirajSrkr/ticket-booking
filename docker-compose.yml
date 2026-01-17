@@ -1,15 +1,16 @@
 services:
   postgres:
-    image: postgres:14.20-trixie
-    container_name: ticket_booking_db
+    image: mysql:8
+    container_name: ticket_booking_mysql
     environment:
-      POSTGRES_DB: ticket_booking
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ticket_booking
+      MYSQL_USER: ticketuser
+      MYSQL_PASSWORD: ticketpass
     ports:
-      - "5432:5432"
+      - "3307:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     networks:
       - ticket_booking_network
 
@@ -22,7 +23,7 @@ services:
       - ticket_booking_network
 
 volumes:
-  postgres_data:
+  mysql_data:
 
 networks:
   ticket_booking_network:
