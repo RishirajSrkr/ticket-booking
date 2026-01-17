@@ -4,35 +4,29 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "events")
+@Table(name = "movies")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Event {
+public class Movie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
+    private String title;
     private String description;
+    private String genre;
 
-    @Column(nullable = false)
-    private LocalDateTime dateTime;
+    private int durationMinutes;
 
-    @Column(nullable = false)
-    private int totalSeatCount;
+    private String language;
 
-    private String location;
-
-    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
-    private List<Seat> seats;
-
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    private List<Show> shows;
 }

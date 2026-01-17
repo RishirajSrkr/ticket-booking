@@ -1,4 +1,4 @@
-package com.concert.ticket_booking.repositories;
+package com.concert.ticket_booking.repository;
 
 import com.concert.ticket_booking.entity.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
