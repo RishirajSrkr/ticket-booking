@@ -25,6 +25,10 @@ public class Booking {
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "show_id", nullable = false)
+    private Show show;
+
+    @ManyToOne
     @JoinColumn(name = "seat_id", nullable = false)
     private Seat seat;
 
