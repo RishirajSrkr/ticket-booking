@@ -27,6 +27,11 @@ public class BookingController {
 
     }
 
+    @GetMapping
+    public ResponseEntity<List<BookingResponse>> getAllBookings(){
+        List<BookingResponse> allBookings = bookingService.getAllBookings();
+        return ResponseEntity.ok(allBookings);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<BookingResponse> findById(
             @PathVariable(name = "id") Long bookingId
@@ -44,5 +49,14 @@ public class BookingController {
         return ResponseEntity.status(HttpStatus.OK).body(bookings);
 
     }
+
+    @PostMapping("/{bookingId}/complete-payment")
+    public ResponseEntity<BookingResponse> completePayment(
+            @PathVariable Long bookingId
+    ){
+        BookingResponse bookingResponse = bookingService.completePayment(bookingId);
+        return ResponseEntity.status(HttpStatus.OK).body(bookingResponse);
+    }
+
 
 }

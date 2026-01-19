@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleGenericError(RuntimeException ex) {
         ErrorResponse error = new ErrorResponse("ERROR", ex.getMessage());

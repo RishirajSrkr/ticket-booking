@@ -3,6 +3,7 @@ package com.concert.ticket_booking.repository;
 import com.concert.ticket_booking.entity.SeatStatus;
 import com.concert.ticket_booking.entity.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -12,10 +13,10 @@ import java.util.List;
 public interface SeatRepository extends JpaRepository<Seat, Long> {
 
     //find all seats of an event
-    List<Seat>findByShowId(Long eventId);
+    List<Seat> findByShowId(Long eventId);
 
     //finding only the available seats
-    List<Seat> findByShowIdAndSeatStatus(Long eventId, SeatStatus seatStatus);
+    List<Seat> findByShowIdAndSeatStatus(Long showId, SeatStatus seatStatus);
 
     //find all seats that expired
     List<Seat> findBySeatStatusAndLockExpiresAtBefore(SeatStatus bookingStatus, LocalDateTime dateTime);

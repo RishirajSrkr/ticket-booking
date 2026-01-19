@@ -1,5 +1,6 @@
 package com.concert.ticket_booking.service;
 
+import com.concert.ticket_booking.dto.SeatResponse;
 import com.concert.ticket_booking.dto.ShowResponse;
 import com.concert.ticket_booking.dto.ShowRequest;
 import com.concert.ticket_booking.entity.Movie;
@@ -65,6 +66,38 @@ public class ShowService {
         return seats;
     }
 
+    public List<SeatResponse> getAvailableSeats(Long showId) {
+        if (!showRepository.existsById(showId)) {
+            throw new RuntimeException("Show not found");
+        }
+        List<Seat> availableSeats = seatRepository.findByShowIdAndSeatStatus(showId, SeatStatus.AVAILABLE);
+        return availableSeats.stream().map(this::toSeatResponse).toList();
+    }
+
+    public List<SeatResponse> getAllSeats(Long showId) {
+
+        Show show = showRepository.findById(showId)
+                .orElseThrow(() -> new RuntimeException("Show not found"));
+
+        List<Seat> seats = seatRepository.findByShowId(showId);
+
+        return seats.stream()
+                .map(seat -> SeatResponse.builder()
+                        .id(seat.getId())
+                        .seatNumber(seat.getSeatNumber())
+                        .status(seat.getSeatStatus())
+                        .build())
+                .toList();
+    }
+
+    private SeatResponse toSeatResponse(Seat seat) {
+        return SeatResponse.builder()
+                .id(seat.getId())
+                .seatNumber(seat.getSeatNumber())
+                .status(seat.getSeatStatus())
+                .build();
+    }
+
     private ShowResponse toShowResponse(Show show) {
         return ShowResponse.builder()
                 .id(show.getId())
@@ -76,4 +109,5 @@ public class ShowService {
                 .totalSeats(show.getTotalSeats())
                 .build();
     }
+
 }
