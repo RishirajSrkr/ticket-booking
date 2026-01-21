@@ -90,6 +90,11 @@ public class ShowService {
                 .toList();
     }
 
+    public List<ShowResponse> getAllShows(){
+        List<Show> allShows = showRepository.findAll();
+        return allShows.stream().map(this::toShowResponse).toList();
+    }
+
     private SeatResponse toSeatResponse(Seat seat) {
         return SeatResponse.builder()
                 .id(seat.getId())

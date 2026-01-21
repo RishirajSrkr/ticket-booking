@@ -5,6 +5,8 @@ import com.concert.ticket_booking.dto.BookingResponse;
 import com.concert.ticket_booking.service.BookingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingController {
 
+    private static final Logger log = LoggerFactory.getLogger(BookingController.class);
     private final BookingService bookingService;
 
     @PostMapping
@@ -28,10 +31,12 @@ public class BookingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookingResponse>> getAllBookings(){
-        List<BookingResponse> allBookings = bookingService.getAllBookings();
+    public ResponseEntity<List<BookingResponse>> getUserBooking(){
+        log.info("===================== Get user bookings called =======================");
+        List<BookingResponse> allBookings = bookingService.getUserBookings();
         return ResponseEntity.ok(allBookings);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<BookingResponse> findById(
             @PathVariable(name = "id") Long bookingId

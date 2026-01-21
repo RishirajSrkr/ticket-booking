@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class BookingService {
 
-    private static final int LOCK_DURATION_MINUTES = 10;
+    private static final int LOCK_DURATION_MINUTES = 3;
 
     private final UserRepository userRepository;
     private final SeatRepository seatRepository;
@@ -53,6 +53,7 @@ public class BookingService {
                 LOCK_DURATION_MINUTES,
                 TimeUnit.MINUTES
         );
+
 
         if (!lockAcquired) {
             String lockedByName = redisTemplate.opsForValue().get(lockKey);
@@ -168,6 +169,12 @@ public class BookingService {
         return toBookingResponse(booking);
     }
 
+    public List<BookingResponse> getUserBookings() {
+        User user = getCurrentUser();
+        List<Booking> userBookings = bookingRepository.findByUserIdOrderByBookingDateTimeDesc(user.getId());
+        return userBookings.stream().map(this::toBookingResponse).toList();
+    }
+
     public List<BookingResponse> findBookingByShowId(Long showId) {
         List<Booking> bookings = bookingRepository.findByShowId(showId);
         return bookings.stream().map(this::toBookingResponse).toList();
@@ -195,4 +202,6 @@ public class BookingService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+
 }

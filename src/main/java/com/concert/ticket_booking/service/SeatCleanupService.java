@@ -47,7 +47,7 @@ public class SeatCleanupService {
             seat.setLockExpiresAt(null);
             seatRepository.save(seat);
 
-            List<Booking> pendingBookings = bookingRepository.findBySeatIdPaymentStatus(seat.getId(), PaymentStatus.PENDING);
+            List<Booking> pendingBookings = bookingRepository.findBySeatIdAndPaymentStatus(seat.getId(), PaymentStatus.PENDING);
             pendingBookings.forEach(booking -> {
                 booking.setPaymentStatus(PaymentStatus.EXPIRED);
                 log.info("Marked booking {} as EXPIRED", booking.getId());

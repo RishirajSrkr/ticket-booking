@@ -26,6 +26,12 @@ public class ShowController {
         return ResponseEntity.ok().body(event);
     }
 
+    @GetMapping
+    public ResponseEntity<List<ShowResponse>> getAllShows() {
+        List<ShowResponse> allShows = showService.getAllShows();
+        return ResponseEntity.ok(allShows);
+    }
+
     @GetMapping("/{showId}/seats")
     public ResponseEntity<List<SeatResponse>> getSeats(
             @PathVariable Long showId,
@@ -43,5 +49,7 @@ public class ShowController {
 
         return ResponseEntity.ok(seats);
     }
+
+    
 
 }
