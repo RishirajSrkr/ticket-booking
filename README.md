@@ -58,21 +58,22 @@ AVAILABLE → LOCKED → COMPLETED
 
 ## 🧪 Concurrency Testing (Integration Test)
 
-The system was validated using a **Spring Boot integration test** that simulates real concurrent users.
+The system was validated using a **Spring Boot integration test** that simulates real-world concurrent booking scenarios.
 
-### Test Details
-- Uses `@SpringBootTest` with a random port
-- Executes real HTTP requests via `TestRestTemplate`
-- Runs against actual Redis and database instances
-- Simulates **100 parallel users** attempting to book the same seat
-- Synchronizes thread start using `CountDownLatch`
+### 📌 Test Details
+- Uses `@SpringBootTest` with a random port  
+- Executes real HTTP requests via `TestRestTemplate`  
+- Runs against actual Redis and database instances  
+- Simulates **100 parallel booking requests** targeting the same seat  
+- Synchronizes thread start using `CountDownLatch` to create contention  
 
-### Result
-- ✅ Exactly **1 booking succeeds**
-- ❌ All other requests fail gracefully
-- ✅ Confirms Redis distributed locking prevents race conditions
+### ✅ Result
+- ✅ Exactly **1 booking succeeds**  
+- ❌ All other requests fail gracefully  
+- ✅ Confirms Redis distributed locking prevents race conditions  
 
 ---
+
 
 ## ▶️ Running the Project Locally
 
